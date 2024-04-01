@@ -1,0 +1,52 @@
+<h2>Contact</h2>
+<p>Feel free to reach out to me using the message box below. I'm always open to new opportunities and collaborations!</p>
+
+
+<p>**Leave me a message:**</p>
+<form id="contact-form">
+  <label for="message">Message:</label>
+  <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+  <br>
+  <button type="submit">Send Message</button>
+  <span id="message-status"></span>
+</form>
+
+<script>
+  const contactForm = document.getElementById('contact-form');
+  const messageStatus = document.getElementById('message-status');
+  let message = ''; // Store the message value outside the event listener
+
+  contactForm.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // Validate message content only if it has changed (prevents initial error)
+    if (message && message.trim().match(/^[^a-zA-Z\s]+$/)) {
+      messageStatus.textContent = 'Invalid Input: Please enter a proper message.';
+      messageStatus.style.color = 'red';
+      messageStatus.classList.add('error'); // Add error styling
+      return; // Exit function if message is invalid
+    }
+
+    // Simulate receiving the message (for demonstration)
+    messageStatus.textContent = 'Thanks for your message! I will review it shortly.';
+    messageStatus.style.color = 'green';
+    messageStatus.classList.remove('error'); // Remove error styling
+
+    // Clear the form after a short delay
+    setTimeout(() => {
+      contactForm.reset();
+      messageStatus.textContent = '';
+      message = ''; // Reset message variable
+    }, 2000);
+
+    // **In reality, you would process the message here (e.g., send it to your email)**
+    console.log('Received message:', message);
+  });
+
+  contactForm.message.addEventListener('keyup', function() {
+    message = this.value.trim(); // Update message on every keyup
+  });
+</script>
+
+
+
